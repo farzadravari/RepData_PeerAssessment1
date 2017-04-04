@@ -12,10 +12,10 @@ library(Hmisc)
 +     unzip('activity.zip')
 + }
 # Calculating activity data
-#Calculating steps per day
+# Calculating steps per day
 > activityData <- read.csv('activity.csv')
 > stepsByDay <- tapply(activityData$steps, activityData$date, sum, na.rm=TRUE)
-#Histogram total step per day
+# Histogram total step per day
 > ggplot(data=averageStepsPerTimeBlock, aes(x=interval, y=meanSteps)) +
 +     geom_line() +
 +     xlab("5-minute interval") +
@@ -34,11 +34,11 @@ library(Hmisc)
 > activityDataImputed$steps <- impute(activityData$steps, fun=mean)
 > stepsByDayImputed <- tapply(activityDataImputed$steps, activityDataImputed$date, sum)
 > qplot(stepsByDayImputed, xlab='Total steps per day (Imputed)', ylab='Frequency using binwith 300', binwidth=300)
-#calculating mean & Median of total step per day
+# calculating mean & Median of total step per day
 > stepsByDayMeanImputed <- mean(stepsByDayImputed)
 > stepsByDayMedianImputed <- median(stepsByDayImputed)
 > activityDataImputed$dateType <-  ifelse(as.POSIXlt(activityDataImputed$date)$wday %in% c(0,6), 'weekend', 'weekday')
-#calculating average daily activity 
+# calculating average daily activity 
 > averagedActivityDataImputed <- aggregate(steps ~ interval + dateType, data=activityDataImputed, mean)
 # Histogram Average daily activity
 > ggplot(averagedActivityDataImputed, aes(interval, steps)) + 
